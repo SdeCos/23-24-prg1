@@ -85,6 +85,9 @@ class ExamenAutomaticoPresonalizado {
         final int FACIL = 1;
         final int MEDIO = 2;
         final int DIFICIL = 3;
+        
+        final int MULTIPLICACION = 1;
+        final int SUMA = 2;
 
         final int NUMERO_PREGUNTAS = 5;
 
@@ -101,32 +104,67 @@ class ExamenAutomaticoPresonalizado {
         int respuesta;
         double puntos = 0;
         
+        String signo = "";
+
+        if (operacion == MULTIPLICACION){
+            signo = " x ";
+        } else if (operacion == SUMA){
+            signo = " + ";
+        }
+
         int preguntasHechas = 0;
         while (preguntasHechas < NUMERO_PREGUNTAS){
             int primerFactor = numeroAleatorio(1, 10);
-            if (dificultad == FACIL){
+            if (dificultad == FACIL && operacion == MULTIPLICACION){
                 int segundoFactor = numeroAleatorio(FACTOR_MINIMO_FACIL, FACTOR_MAXIMO_FACIL);
-                System.out.print(primerFactor + " x " + segundoFactor + " = ");
+                System.out.print(primerFactor + signo + segundoFactor + " = ");
                 respuesta = scanner.nextInt();
                 if (respuesta == (primerFactor * segundoFactor)){
                     puntos += PUNTOS_ACIERTO;
                 } else {
                     puntos += PUNTOS_FALLO;
                 }
-            } else if (dificultad == MEDIO){
+            } else if (dificultad == MEDIO && operacion == MULTIPLICACION){
                 int segundoFactor = numeroAleatorio(FACTOR_MINIMO_MEDIO, FACTOR_MAXIMO_MEDIO);
-                System.out.print(primerFactor + " x " + segundoFactor + " = ");
+                System.out.print(primerFactor + signo + segundoFactor + " = ");
                 respuesta = scanner.nextInt();
                 if (respuesta == (primerFactor * segundoFactor)){
                     puntos += PUNTOS_ACIERTO;
                 } else {
                     puntos += PUNTOS_FALLO;
                 }
-            } else if (dificultad == DIFICIL){
+            } else if (dificultad == DIFICIL && operacion == MULTIPLICACION){
                 int segundoFactor = numeroAleatorio(FACTOR_MINIMO_DIFICIL, FACTOR_MAXIMO_DIFICIL);
-                System.out.print(primerFactor + " x " + segundoFactor + " = ");
+                System.out.print(primerFactor + signo + segundoFactor + " = ");
                 respuesta = scanner.nextInt();
                 if (respuesta == (primerFactor * segundoFactor)){
+                    puntos += PUNTOS_ACIERTO;
+                } else {
+                    puntos += PUNTOS_FALLO;
+                }
+            } else if (dificultad == FACIL && operacion == SUMA){
+                int segundoFactor = numeroAleatorio(FACTOR_MINIMO_FACIL, FACTOR_MAXIMO_FACIL);
+                System.out.print(primerFactor + signo + segundoFactor + " = ");
+                respuesta = scanner.nextInt();
+                if (respuesta == (primerFactor + segundoFactor)){
+                    puntos += PUNTOS_ACIERTO;
+                } else {
+                    puntos += PUNTOS_FALLO;
+                }
+            } else if (dificultad == MEDIO && operacion == SUMA){
+                int segundoFactor = numeroAleatorio(FACTOR_MINIMO_MEDIO, FACTOR_MAXIMO_MEDIO);
+                System.out.print(primerFactor + signo + segundoFactor + " = ");
+                respuesta = scanner.nextInt();
+                if (respuesta == (primerFactor + segundoFactor)){
+                    puntos += PUNTOS_ACIERTO;
+                } else {
+                    puntos += PUNTOS_FALLO;
+                }
+            } else if (dificultad == DIFICIL && operacion == SUMA){
+                int segundoFactor = numeroAleatorio(FACTOR_MINIMO_DIFICIL, FACTOR_MAXIMO_DIFICIL);
+                System.out.print(primerFactor + signo + segundoFactor + " = ");
+                respuesta = scanner.nextInt();
+                if (respuesta == (primerFactor + segundoFactor)){
                     puntos += PUNTOS_ACIERTO;
                 } else {
                     puntos += PUNTOS_FALLO;
