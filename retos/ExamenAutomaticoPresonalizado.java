@@ -1,33 +1,37 @@
 import java.util.Scanner;
-
-import javax.sound.midi.Soundbank;
 class ExamenAutomaticoPresonalizado {
     public static void main(String[] args) {    
         Scanner scanner = new Scanner(System.in);
        
         int opcionMenu = 0;
         int dificultad = 0;
+        int operacion = 0;
         
         final int VOLVER_AL_MENU = 0;
         final int CONFIGURACION = 1;
-        final int EJECUCION = 2;
-        final int SALIR = 3;
+        final int OPERACION = 2;
+        final int EJECUCION = 3;
+        final int SALIR = 4;
         
         final int NO_CONFIGURADO = 0;
         final int FACIL = 1;
         final int MEDIO = 2;
         final int DIFICIL = 3;
 
-        String mensajeDificultad = "";
+        final int MULTIPLICACION = 1;
+        final int SUMA = 2;
+
+        String mensajeError = "";
 
         while (!(opcionMenu == SALIR)){
-            while (!(opcionMenu == CONFIGURACION) && !(opcionMenu == EJECUCION) && !(opcionMenu == SALIR)){
+            while (!(opcionMenu == CONFIGURACION) && !(opcionMenu == EJECUCION) && !(opcionMenu == OPERACION) && !(opcionMenu == SALIR)){
                 limpiarPantalla();
-                System.out.print(mensajeDificultad + """
+                System.out.print(mensajeError + """
                         +----MENU  PRINCIPAL----+
                         | 1. Configuracion      |
-                        | 2. Ejecutar Test      |
-                        | 3. Salir del programa |
+                        | 2. Operacion          |
+                        | 3. Ejecutar Test      |
+                        | 4. Salir del programa |
                         +-----------------------+
                         Elige la acción que deseas realizar: """);
                     opcionMenu = scanner.nextInt();
@@ -46,15 +50,28 @@ class ExamenAutomaticoPresonalizado {
                             +-----------------------+
                             Elige la acción que deseas realizar: """);
                     dificultad = scanner.nextInt();
-                    mensajeDificultad = "";
+                    mensajeError = "";
                 }
                 opcionMenu = VOLVER_AL_MENU;
               
-                } else if (opcionMenu == EJECUCION && dificultad == NO_CONFIGURADO){
-                    mensajeDificultad = "Antes de empezar el test hay que configurar el nivel de dificultad\n";
+                } else if (opcionMenu == OPERACION){
+                    operacion = NO_CONFIGURADO;
+                    while (!(operacion == MULTIPLICACION) && !(operacion == SUMA)){
+                    System.out.print("""
+                            +-----OPERACION-----+
+                            | 1. MULTIPLICACIÓN |
+                            | 2. SUMA           |
+                            +-------------------+
+                            Elige la acción que deseas realizar: """);
+                    operacion = scanner.nextInt();
+                }
+                opcionMenu = VOLVER_AL_MENU;
+              
+                } else if (opcionMenu == EJECUCION && (dificultad == NO_CONFIGURADO || operacion == NO_CONFIGURADO)){
+                    mensajeError = "Antes de empezar el test hay que configurar el nivel de dificultad y la operacion\n";
                     opcionMenu = VOLVER_AL_MENU;
-                } else if (opcionMenu != SALIR){
-                    juego(dificultad);
+                } else if (opcionMenu == EJECUCION){
+                    juego(dificultad, operacion);
                     System.out.println("Pulsa cualquier número para continuar");
                     scanner.nextInt();
                     opcionMenu = VOLVER_AL_MENU;
@@ -62,7 +79,7 @@ class ExamenAutomaticoPresonalizado {
     }           
 }
 
-    private static void juego(int dificultad) {
+    private static void juego(int dificultad, int operacion) {
         Scanner scanner = new Scanner(System.in);
   
         final int FACIL = 1;
