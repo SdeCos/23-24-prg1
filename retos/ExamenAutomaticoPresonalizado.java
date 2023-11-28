@@ -1,5 +1,4 @@
 import java.util.Scanner;
-
 class ExamenAutomaticoPresonalizado {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -27,8 +26,7 @@ class ExamenAutomaticoPresonalizado {
 
         while (!(opcionMenu == SALIR)) {
 
-            while (!(opcionMenu == CONFIGURACION) && !(opcionMenu == EJECUCION) && !(opcionMenu == OPERACION)
-                    && !(opcionMenu == SALIR)) {
+            while (!(opcionMenu == CONFIGURACION) && !(opcionMenu == EJECUCION) && !(opcionMenu == OPERACION) && !(opcionMenu == SALIR)) {
                 limpiarPantalla();
                 System.out.print(mensajeError + """
                         +----MENU  PRINCIPAL----+
