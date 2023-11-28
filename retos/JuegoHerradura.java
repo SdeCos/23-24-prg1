@@ -52,7 +52,7 @@ class JuegoHerradura {
                 tramoArmand = 3;
             }
 
-            if (tramoArmand == tramoArmand){
+            if (tramoArmand == tramoNaneh){
                 puntosArmand += PUNTOS_EMPATE;
                 puntosNaneh += PUNTOS_EMPATE;
             } else if (tramoArmand > tramoNaneh){

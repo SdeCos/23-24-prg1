@@ -1,9 +1,9 @@
 class PruebaRandom{
     public static void main(String[] args) {
         int numero = 0;
-        while (numero != 11){
-            numero = numeroAleatorio(1,10);
-            if (numero == 10){
+        while (numero != 15){
+            numero = numeroAleatorio(1,4);
+            if (numero == 4){
                 System.out.println(numero);    
             }
         }
