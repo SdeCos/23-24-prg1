@@ -28,7 +28,7 @@ class AspiradoraConArray {
             {1,0,1,0,2,0,0,0,0,0,0,0,0,0,0,1,0,0,0}
         };
 
-        int mapaPruebas[][] = {
+        int mapaPrueba[][] = {
             {0,0,0,0,0,0},
             {0,0,0,0,0,0},
             {0,0,0,0,0,1},
@@ -40,18 +40,27 @@ class AspiradoraConArray {
 
         int suciedadAspirada = 0;
         boolean termino = false;
-        int pasos = 0;
+        boolean bateriaAgotada = false;
+        int pasos = 1;
 
-        for (pasos = 1; pasos<=999999 && !termino ; pasos++){
+        int capacidadBateria = (mapa.length * mapa[0].length) * 5;
+        System.out.println(capacidadBateria);
+        while (!bateriaAgotada && !termino){
             int suciedadRestante = sumaMapa(mapa);
             termino = suciedadRestante == 0;
+            bateriaAgotada = pasos == capacidadBateria;
             suciedadAspirada += mapa[posicionAspiradora[EJE_Y]][posicionAspiradora[EJE_X]] > 0 ? 1 : 0;
             imprimeMapa(mapa, posicionAspiradora, suciedadAspirada, pasos, suciedadRestante);
             mueveAspiradora(posicionAspiradora, mapa);
             scanner.nextLine();
             limpiarPantalla();
+            pasos++;
         }
-        System.out.println("La aspiradora ha limpiado por completo la habitacion, tardando " + pasos + " pasos");
+        if (bateriaAgotada){
+            System.out.println("La batería se agotó tras " + pasos + " pasos");
+        } else if (termino){
+            System.out.println("Terminó de limpiar la habitación tras " + pasos + " pasos");
+        }
 
     }
 
