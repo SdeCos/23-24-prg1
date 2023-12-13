@@ -37,7 +37,6 @@ class AspiradoraConArray {
             {0,0,0,0,0,0},
             {0,0,0,0,0,0}
         };
-// Hacerlo bidimensional para guardar posicion de aspiradora y gato
         int[][] posicionObjeto = {
             {2, 2},
             {4, 4}
@@ -56,7 +55,6 @@ class AspiradoraConArray {
             bateriaAgotada = pasos == capacidadBateria;
             suciedadAspirada += mapa[posicionObjeto[ASPIRADORA][EJE_Y]][posicionObjeto[ASPIRADORA][EJE_X]] > 0 ? 1 : 0;
             imprimeMapa(mapa, posicionObjeto[ASPIRADORA], suciedadAspirada, pasos, suciedadRestante, posicionObjeto[GATO]);
-            // Cambiarlo a mueve objeto y que mueva o el gato o la aspiradora
             mueveObjeto(posicionObjeto[ASPIRADORA], mapa);
             mueveObjeto(posicionObjeto[GATO], mapa);
             scanner.nextLine();
