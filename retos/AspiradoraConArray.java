@@ -3,6 +3,8 @@ import java.util.stream.IntStream;
 class AspiradoraConArray {
     public static final int EJE_X = 0;
     public static final int EJE_Y = 1;
+    public static final int ASPIRADORA = 0;
+    public static final int GATO = 1;
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -36,7 +38,10 @@ class AspiradoraConArray {
             {0,0,0,0,0,0}
         };
 // Hacerlo bidimensional para guardar posicion de aspiradora y gato
-        int[] posicionAspiradora = {2, 2};
+        int[][] posicionObjeto = {
+            {2, 2},
+            {4, 4}
+        };
 
         int suciedadAspirada = 0;
         boolean termino = false;
@@ -49,10 +54,11 @@ class AspiradoraConArray {
             int suciedadRestante = sumaMapa(mapa);
             termino = suciedadRestante == 0;
             bateriaAgotada = pasos == capacidadBateria;
-            suciedadAspirada += mapa[posicionAspiradora[EJE_Y]][posicionAspiradora[EJE_X]] > 0 ? 1 : 0;
-            imprimeMapa(mapa, posicionAspiradora, suciedadAspirada, pasos, suciedadRestante);
+            suciedadAspirada += mapa[posicionObjeto[ASPIRADORA][EJE_Y]][posicionObjeto[ASPIRADORA][EJE_X]] > 0 ? 1 : 0;
+            imprimeMapa(mapa, posicionObjeto[ASPIRADORA], suciedadAspirada, pasos, suciedadRestante, posicionObjeto[GATO]);
             // Cambiarlo a mueve objeto y que mueva o el gato o la aspiradora
-            mueveAspiradora(posicionAspiradora, mapa);
+            mueveObjeto(posicionObjeto[ASPIRADORA], mapa);
+            mueveObjeto(posicionObjeto[GATO], mapa);
             scanner.nextLine();
             limpiarPantalla();
             pasos++;
@@ -65,15 +71,15 @@ class AspiradoraConArray {
 
     }
 
-    private static void mueveAspiradora(int[] posicionAspiradora, int[][] mapa) {
-        posicionAspiradora[EJE_X] = numeroAleatorio(posicionAspiradora[EJE_X] - 1, posicionAspiradora[EJE_X] + 1);
+    private static void mueveObjeto(int[] posicionObjeto, int[][] mapa) {
+        posicionObjeto[EJE_X] = numeroAleatorio(posicionObjeto[EJE_X] - 1, posicionObjeto[EJE_X] + 1);
         // posicionAspiradora[EJE_X]++;
-        posicionAspiradora[EJE_X] = posicionAspiradora[EJE_X] < 0 ? (mapa[0].length - 1) : posicionAspiradora[EJE_X];
-        posicionAspiradora[EJE_X] = posicionAspiradora[EJE_X] > (mapa[0].length - 1) ? 0 : posicionAspiradora[EJE_X];
-        posicionAspiradora[EJE_Y] = numeroAleatorio(posicionAspiradora[EJE_Y] - 1, posicionAspiradora[EJE_Y] + 1);
+        posicionObjeto[EJE_X] = posicionObjeto[EJE_X] < 0 ? (mapa[0].length - 1) : posicionObjeto[EJE_X];
+        posicionObjeto[EJE_X] = posicionObjeto[EJE_X] > (mapa[0].length - 1) ? 0 : posicionObjeto[EJE_X];
+        posicionObjeto[EJE_Y] = numeroAleatorio(posicionObjeto[EJE_Y] - 1, posicionObjeto[EJE_Y] + 1);
         // posicionAspiradora[EJE_Y]++;
-        posicionAspiradora[EJE_Y] = posicionAspiradora[EJE_Y] < 0 ? (mapa.length - 1) : posicionAspiradora[EJE_Y];
-        posicionAspiradora[EJE_Y] = posicionAspiradora[EJE_Y] > (mapa.length - 1) ? 0 : posicionAspiradora[EJE_Y];
+        posicionObjeto[EJE_Y] = posicionObjeto[EJE_Y] < 0 ? (mapa.length - 1) : posicionObjeto[EJE_Y];
+        posicionObjeto[EJE_Y] = posicionObjeto[EJE_Y] > (mapa.length - 1) ? 0 : posicionObjeto[EJE_Y];
     }
 
     private static int sumaMapa(int[][] mapa) {
@@ -86,8 +92,9 @@ class AspiradoraConArray {
     return suma;
     }
 
-    private static void imprimeMapa(int[][] mapa, int[] posicionAspiradora, int suciedadAspirada, int pasos, int suciedadRestante) {
+    private static void imprimeMapa(int[][] mapa, int[] posicionAspiradora, int suciedadAspirada, int pasos, int suciedadRestante, int[] posicionGato) {
         final int VALOR_ASPIRADORA = 5;
+        final int VALOR_GATO = 6;
         int queDetecta = 0;
         System.out.println("+" + "---".repeat(mapa[1].length) + "+");
         for (int fila = 0; fila < mapa.length; fila++){
@@ -98,6 +105,10 @@ class AspiradoraConArray {
                 queDetecta = mapa[fila][columna];
                 mapa[fila][columna]--;
                 mapa[fila][columna] = mapa[fila][columna] < 0 ? 0 : mapa[fila][columna];
+                } else if (columna == posicionGato[EJE_X] && fila == posicionGato[EJE_Y]){
+                System.out.print(traduce(VALOR_GATO));
+                mapa[fila][columna]++;
+                mapa[fila][columna] = mapa[fila][columna] > 4 ? 4 : mapa[fila][columna];
                 } else {
                 System.out.print(traduce(mapa[fila][columna]));
                 }
@@ -109,7 +120,7 @@ class AspiradoraConArray {
     }
 
     static String traduce(int casilla) {
-        String[] figuras = {" . ","...","ooo","OOO","***","(0)"};
+        String[] figuras = {" . ","...","ooo","OOO","***","(0)", "\"^\""};
         return figuras[casilla];
     }
     static void limpiarPantalla() {
