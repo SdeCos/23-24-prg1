@@ -24,35 +24,38 @@ class AspiradoraConArray {
         };
         int xAspiradora = 4;
         int yAspiradora = 4;
-
+        int suciedadAspirada = 0;
         for (int i = 0; i<=999999;i++){
-        imprimeMapa(mapa, xAspiradora, yAspiradora);
+        
+        suciedadAspirada += mapa[yAspiradora][xAspiradora] > 0 ? 1 : 0;
+        imprimeMapa(mapa, xAspiradora, yAspiradora, suciedadAspirada);
         xAspiradora = numeroAleatorio(xAspiradora - 1, xAspiradora + 1);
-        xAspiradora = xAspiradora < 0 ? 1 : xAspiradora;
-        xAspiradora = xAspiradora > mapa.length ? mapa.length : xAspiradora;
+        xAspiradora = xAspiradora < 0 ? 0 : xAspiradora;
+        xAspiradora = xAspiradora > (mapa.length - 1) ? (mapa.length - 1) : xAspiradora;
         yAspiradora = numeroAleatorio(yAspiradora - 1, yAspiradora + 1);
-        yAspiradora = yAspiradora < 0 ? 1 : yAspiradora;
-        yAspiradora = yAspiradora > mapa[1].length ? mapa[1].length : yAspiradora;
+        yAspiradora = yAspiradora < 0 ? 0 : yAspiradora;
+        yAspiradora = yAspiradora > (mapa[1].length - 1) ? (mapa[1].length - 1) : yAspiradora;
         scanner.nextLine();
         limpiarPantalla();
         }
 
     }
 
-    private static void imprimeMapa(int[][] mapa, int xAspiradora, int yAspiradora) {
-
+    private static void imprimeMapa(int[][] mapa, int xAspiradora, int yAspiradora, int suciedadAspirada) {
         final int VALOR_ASPIRADORA = 5;
-        
         for (int fila = 0; fila < mapa.length; fila++){
             for (int columna = 0; columna < mapa[fila].length; columna++){
                 if (columna == xAspiradora && fila == yAspiradora){
                 System.out.print(traduce(VALOR_ASPIRADORA));
+                mapa[fila][columna]--;
+                mapa[fila][columna] = mapa[fila][columna] < 0 ? 0 : mapa[fila][columna];
                 } else {
                 System.out.print(traduce(mapa[fila][columna]));
                 }
             }
             System.out.println();
         }
+        System.out.println("Aspiradora en " + (xAspiradora + 1) + "x, " + (yAspiradora + 1) + "y, detecta " + traduce(mapa[yAspiradora][xAspiradora]) + ", en total ha aspirado " + suciedadAspirada);
     }
 
     static String traduce(int casilla) {
