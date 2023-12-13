@@ -1,13 +1,17 @@
 import java.util.Scanner;
 import java.util.stream.IntStream;
 class AspiradoraConArray {
+    public static final int EJE_X = 0;
+    public static final int EJE_Y = 1;
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+
+
         int mapa[][] = {
             {0,0,0,0,0,0,0,0,2,0,0,0,2,0,0,0,0,0,0},
-            {0,0,1,0,0,0,0,0,2,0,2,0,0,0,0,0,0,0,0},
-            {0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,0,0,2,0},
-            {0,0,1,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0},
+            {0,1,1,1,0,0,0,0,2,0,2,0,0,0,0,0,0,0,0},
+            {0,1,0,1,0,0,0,0,0,0,0,0,0,0,1,0,0,2,0},
+            {0,1,1,1,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0},
             {0,0,0,1,0,0,1,0,2,0,0,0,0,0,0,0,0,0,0},
             {0,0,1,0,0,0,0,0,0,0,0,1,0,0,2,0,0,0,0},
             {0,0,1,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0},
@@ -32,8 +36,8 @@ class AspiradoraConArray {
             {0,0,0,0,0,0}
         };
 
-        int xAspiradora = numeroAleatorio(0, (mapa[1].length - 1));
-        int yAspiradora = numeroAleatorio(0, (mapa.length - 1));
+        int[] posicionAspiradora = {2, 2};
+
         int suciedadAspirada = 0;
         boolean termino = false;
         int pasos = 0;
@@ -41,22 +45,25 @@ class AspiradoraConArray {
         for (pasos = 1; pasos<=999999 && !termino ; pasos++){
             int suciedadRestante = sumaMapa(mapa);
             termino = suciedadRestante == 0;
-            suciedadAspirada += mapa[yAspiradora][xAspiradora] > 0 ? 1 : 0;
-            imprimeMapa(mapa, xAspiradora, yAspiradora, suciedadAspirada, pasos, suciedadRestante);
-
-            xAspiradora = numeroAleatorio(xAspiradora - 1, xAspiradora + 1);
-            xAspiradora = xAspiradora < 0 ? 0 : xAspiradora;
-            xAspiradora = xAspiradora > (mapa[1].length - 1) ? (mapa.length - 1) : xAspiradora;
-
-            yAspiradora = numeroAleatorio(yAspiradora - 1, yAspiradora + 1);
-            yAspiradora = yAspiradora < 0 ? 0 : yAspiradora;
-            yAspiradora = yAspiradora > (mapa.length - 1) ? (mapa.length - 1) : yAspiradora;
-
+            suciedadAspirada += mapa[posicionAspiradora[EJE_Y]][posicionAspiradora[EJE_X]] > 0 ? 1 : 0;
+            imprimeMapa(mapa, posicionAspiradora, suciedadAspirada, pasos, suciedadRestante);
+            mueveAspiradora(posicionAspiradora, mapa);
             scanner.nextLine();
             limpiarPantalla();
         }
         System.out.println("La aspiradora ha limpiado por completo la habitacion, tardando " + pasos + " pasos");
 
+    }
+
+    private static void mueveAspiradora(int[] posicionAspiradora, int[][] mapa) {
+        posicionAspiradora[EJE_X] = numeroAleatorio(posicionAspiradora[EJE_X] - 1, posicionAspiradora[EJE_X] + 1);
+        // posicionAspiradora[EJE_X]++;
+        posicionAspiradora[EJE_X] = posicionAspiradora[EJE_X] < 0 ? (mapa[0].length - 1) : posicionAspiradora[EJE_X];
+        posicionAspiradora[EJE_X] = posicionAspiradora[EJE_X] > (mapa[0].length - 1) ? 0 : posicionAspiradora[EJE_X];
+        posicionAspiradora[EJE_Y] = numeroAleatorio(posicionAspiradora[EJE_Y] - 1, posicionAspiradora[EJE_Y] + 1);
+        // posicionAspiradora[EJE_Y]++;
+        posicionAspiradora[EJE_Y] = posicionAspiradora[EJE_Y] < 0 ? (mapa.length - 1) : posicionAspiradora[EJE_Y];
+        posicionAspiradora[EJE_Y] = posicionAspiradora[EJE_Y] > (mapa.length - 1) ? 0 : posicionAspiradora[EJE_Y];
     }
 
     private static int sumaMapa(int[][] mapa) {
@@ -69,14 +76,16 @@ class AspiradoraConArray {
     return suma;
     }
 
-    private static void imprimeMapa(int[][] mapa, int xAspiradora, int yAspiradora, int suciedadAspirada, int pasos, int suciedadRestante) {
+    private static void imprimeMapa(int[][] mapa, int[] posicionAspiradora, int suciedadAspirada, int pasos, int suciedadRestante) {
         final int VALOR_ASPIRADORA = 5;
+        int queDetecta = 0;
         System.out.println("+" + "---".repeat(mapa[1].length) + "+");
         for (int fila = 0; fila < mapa.length; fila++){
             System.out.print("|");
             for (int columna = 0; columna < mapa[fila].length; columna++){
-                if (columna == xAspiradora && fila == yAspiradora){
+                if (columna == posicionAspiradora[EJE_X] && fila == posicionAspiradora[EJE_Y]){
                 System.out.print(traduce(VALOR_ASPIRADORA));
+                queDetecta = mapa[fila][columna];
                 mapa[fila][columna]--;
                 mapa[fila][columna] = mapa[fila][columna] < 0 ? 0 : mapa[fila][columna];
                 } else {
@@ -86,7 +95,7 @@ class AspiradoraConArray {
             System.out.println("|");
         }
         System.out.println("+" + "---".repeat(mapa[1].length) + "+");
-        System.out.println("Aspiradora en " + (xAspiradora + 1) + "x, " + (yAspiradora + 1) + "y, detecta " + traduce(mapa[yAspiradora][xAspiradora]) + ", en total ha aspirado " + suciedadAspirada + " objetos, habiendo dado " + pasos + " pasos, le falta por aspirar, " + suciedadRestante + " objeto/s");
+        System.out.println("Aspiradora en " + (posicionAspiradora[EJE_X] + 1) + "x, " + (posicionAspiradora[EJE_Y] + 1) + "y, detecta " + traduce(queDetecta) + ", en total ha aspirado " + suciedadAspirada + " objetos, habiendo dado " + pasos + " pasos, le falta por aspirar, " + suciedadRestante + " objeto/s");
     }
 
     static String traduce(int casilla) {
