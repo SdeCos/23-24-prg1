@@ -45,7 +45,7 @@ class AspiradoraConArray {
 
         int capacidadBateria = (mapa.length * mapa[0].length) * 5;
         System.out.println(capacidadBateria);
-        while (!bateriaAgotada && !termino){
+        do{
             int suciedadRestante = sumaMapa(mapa);
             termino = suciedadRestante == 0;
             bateriaAgotada = pasos == capacidadBateria;
@@ -56,7 +56,7 @@ class AspiradoraConArray {
             scanner.nextLine();
             limpiarPantalla();
             pasos++;
-        }
+        }while (!bateriaAgotada && !termino);
         if (bateriaAgotada){
             System.out.println("La batería se agotó tras " + pasos + " pasos");
         } else if (termino){
