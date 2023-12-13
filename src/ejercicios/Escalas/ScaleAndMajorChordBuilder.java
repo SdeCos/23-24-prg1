@@ -1,14 +1,13 @@
 package ejercicios.Escalas;
-
 class ScaleAndMajorChordBuilder {
 
     static final String[] NOTES = { "Do", "Do#", "Re", "Re#", "Mi", "Fa", "Fa#", "Sol", "Sol#", "La", "La#", "Si" };
-
     public static void main(String[] args) {
 
-        String[] majorScale = majorScale("DO");
+        String[] majorScale = majorScale("SOL");
         printNotes(majorScale);
-
+        String[] majorChord = builChord(majorScale);
+        printNotes(majorChord);
     }
 
     static int getIndex(String note) {
@@ -32,7 +31,7 @@ class ScaleAndMajorChordBuilder {
     }
 
     private static String[] majorScale(String note) {
-        int[] intervals = {2, 2, 1, 2, 2, 2, 1};
+        int[] intervals = { 2, 2, 1, 2, 2, 2, 1 };
         String[] scale = new String[8];
         int noteIndex = getIndex(note);
 
@@ -43,5 +42,10 @@ class ScaleAndMajorChordBuilder {
             }
         }
         return scale;
+    }
+
+    private static String[] builChord(String[] scale) {
+        String[] chord = { scale[0], scale[2], scale[4] };
+        return chord;
     }
 }
