@@ -45,39 +45,59 @@ class AspiradoraConArray {
         int suciedadAspirada = 0;
         boolean termino = false;
         boolean bateriaAgotada = false;
+        boolean bolsaLlena = false;
+        
         int pasos = 1;
-
         int capacidadBateria = (mapa.length * mapa[0].length) * 5;
-        System.out.println(capacidadBateria);
+        int capacidadBolsa = 10;
+
         do{
             int suciedadRestante = sumaMapa(mapa);
-            termino = suciedadRestante == 0;
-            bateriaAgotada = pasos == capacidadBateria;
             suciedadAspirada += mapa[posicionObjeto[ASPIRADORA][EJE_Y]][posicionObjeto[ASPIRADORA][EJE_X]] > 0 ? 1 : 0;
             imprimeMapa(mapa, posicionObjeto[ASPIRADORA], suciedadAspirada, pasos, suciedadRestante, posicionObjeto[GATO]);
-            mueveObjeto(posicionObjeto[ASPIRADORA], mapa);
-            mueveObjeto(posicionObjeto[GATO], mapa);
-            scanner.nextLine();
+            mueveObjeto(posicionObjeto[ASPIRADORA], mapa, ASPIRADORA);
+            comprobarLimites(posicionObjeto[ASPIRADORA], mapa);
+            mueveObjeto(posicionObjeto[GATO], mapa, GATO);
+            comprobarLimites(posicionObjeto[GATO], mapa);
             limpiarPantalla();
             pasos++;
-        }while (!bateriaAgotada && !termino);
+            termino = suciedadRestante == 0;
+            bateriaAgotada = pasos == capacidadBateria;
+            bolsaLlena = suciedadAspirada == capacidadBolsa;
+        }while (!bateriaAgotada && !termino && !bolsaLlena);
         if (bateriaAgotada){
             System.out.println("La batería se agotó tras " + pasos + " pasos");
         } else if (termino){
             System.out.println("Terminó de limpiar la habitación tras " + pasos + " pasos");
+        } else if (bolsaLlena){
+            System.out.println("La bolsa se llenó");
         }
 
     }
 
-    private static void mueveObjeto(int[] posicionObjeto, int[][] mapa) {
+    private static void mueveObjeto(int[] posicionObjeto, int[][] mapa, int objeto) {
+        Scanner scanner = new Scanner(System.in);
+        if (objeto == GATO){
         posicionObjeto[EJE_X] = numeroAleatorio(posicionObjeto[EJE_X] - 1, posicionObjeto[EJE_X] + 1);
-        // posicionAspiradora[EJE_X]++;
+        // posicionObjeto[EJE_X]--;
+        posicionObjeto[EJE_Y] = numeroAleatorio(posicionObjeto[EJE_Y] - 1, posicionObjeto[EJE_Y] + 1);
+        // posicionObjeto[EJE_Y]--;
+        } else if (objeto == ASPIRADORA){
+            String tecla = scanner.nextLine();
+            if(tecla.equalsIgnoreCase("w")) posicionObjeto[EJE_Y]--;
+            if(tecla.equalsIgnoreCase("a")) posicionObjeto[EJE_X]--;
+            if(tecla.equalsIgnoreCase("s")) posicionObjeto[EJE_Y]++;
+            if(tecla.equalsIgnoreCase("d")) posicionObjeto[EJE_X]++;
+        }
+    }
+
+    
+    private static void comprobarLimites(int[] posicionObjeto, int[][] mapa) {
         posicionObjeto[EJE_X] = posicionObjeto[EJE_X] < 0 ? (mapa[0].length - 1) : posicionObjeto[EJE_X];
         posicionObjeto[EJE_X] = posicionObjeto[EJE_X] > (mapa[0].length - 1) ? 0 : posicionObjeto[EJE_X];
-        posicionObjeto[EJE_Y] = numeroAleatorio(posicionObjeto[EJE_Y] - 1, posicionObjeto[EJE_Y] + 1);
-        // posicionAspiradora[EJE_Y]++;
         posicionObjeto[EJE_Y] = posicionObjeto[EJE_Y] < 0 ? (mapa.length - 1) : posicionObjeto[EJE_Y];
         posicionObjeto[EJE_Y] = posicionObjeto[EJE_Y] > (mapa.length - 1) ? 0 : posicionObjeto[EJE_Y];
+
     }
 
     private static int sumaMapa(int[][] mapa) {
