@@ -29,14 +29,13 @@ class AspiradoraConArray {
             {0,0,0,0,3,0,0,0,2,0,0,0,0,0,0,0,0,0,0},
             {1,0,1,0,2,0,0,0,0,0,0,0,0,0,0,1,0,0,0}
         };
-
-        int mapaPrueba[][] = {
-            {0,0,0,0,0,0},
-            {0,0,0,0,0,0},
-            {0,0,0,0,0,1},
-            {0,0,0,0,0,0},
-            {0,0,0,0,0,0}
-        };
+        // int mapa[][] = {
+            // {0,0,0,0,0,0},
+            // {0,0,0,0,0,0},
+            // {0,0,0,0,0,1},
+            // {0,0,0,0,0,0},
+            // {0,0,0,0,0,0}
+        // };
         int[][] posicionObjeto = {
             {2, 2},
             {4, 4}
@@ -46,6 +45,7 @@ class AspiradoraConArray {
         boolean termino = false;
         boolean bateriaAgotada = false;
         boolean bolsaLlena = false;
+        
         
         int pasos = 1;
         int capacidadBateria = (mapa.length * mapa[0].length) * 5;
