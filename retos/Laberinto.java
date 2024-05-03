@@ -82,7 +82,7 @@ public class Laberinto {
 		for (int i=0; i<mapaPorImprimir.length; i=i+1){
             System.out.print("|");
 			for (int j=0; j<mapaPorImprimir[i].length; j=j+1) {
-				if (puedoVer(i,j,999)) {
+				if (puedoVer(i,j,25)) {
 					if (i==posicionYPersonaje && j==posicionXPersonaje) {
 						imprimePersonaje();
 					} else {
