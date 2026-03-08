@@ -84,10 +84,19 @@ class ViajeDeMarco {
             System.out.print(tiempoMarco);
             System.out.print(amedioEscapa);
             System.out.print(amedioCansado);
-            System.out.println("Avance " + Math.floor(tiempoMoviendoseMarco * 100) / 100 + " horas a " + Math.floor(velocidadMarco * 100) / 100 + " Km/h recorriendo " + Math.floor(recorridoDiarioMarco * 100) / 100 + " Km");
+            System.out.println("Avance " + Math.floor(tiempoMoviendoseMarco * 100) / 100
+                            + " horas a " + Math.floor(velocidadMarco * 100) / 100
+                            + " Km/h recorriendo " + Math.floor(recorridoDiarioMarco * 100) / 100 
+                            + " Km");
             System.out.print(tiempoMadre);
-            System.out.println("Mama pudo avanzar " + Math.floor(tiempoMoviendoseMadre * 100) / 100 + " horas a " + Math.floor(velocidadMadre * 100) / 100 + " Km/h recorriendo " + Math.floor(recorridoDiarioMadre * 100) / 100 + " Km");
-            System.out.println("Al final del día " + dia + " la distancia entre Marco y su Madre es de " + Math.floor((distanciaTotalMadre-distanciaTotalMarco) * 100) / 100);
+            System.out.println("Mama pudo avanzar " 
+                            + Math.floor(tiempoMoviendoseMadre * 100) / 100 
+                            + " horas a " + Math.floor(velocidadMadre * 100) / 100 
+                            + " Km/h recorriendo " + Math.floor(recorridoDiarioMadre * 100) / 100 
+                            + " Km");
+            System.out.println("Al final del día " + dia 
+                            + " la distancia entre Marco y su Madre es de " 
+                            + Math.floor((distanciaTotalMadre-distanciaTotalMarco) * 100) / 100);
             System.out.print(mensajeMadreVista);
             System.out.print(SEGUNDO_SEPARADOR);
             madreEncontrada = distanciaTotalMarco >= distanciaTotalMadre;
