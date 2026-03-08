@@ -81,7 +81,7 @@ class Caracol {
             System.out.print(mensajeTiempo);
             System.out.println("Día [" + dia + "] / Sube: [" + ascensoAproximado + "] / Baja: [" + descensoAproximado
                     + "] / Altura al final del día: [" + profundidadAproximada + "]");
-            dibujoPozo((int) profundidadAproximada, cocheAparcado, profundidadMaxima);
+            dibujarPozo((int) profundidadAproximada, cocheAparcado, profundidadMaxima);
             System.out.print(mensajeMuerte);
             scanner.nextLine();
             if (profundidadAproximada <= alturaSalida) {
@@ -91,7 +91,7 @@ class Caracol {
         } while (estaFuera == false && estaVivo == true);
     }
 
-    public static void dibujoPozo(int profundidad, boolean cocheAparcado, int profundidadMaxima) {
+    public static void dibujarPozo(int profundidad, boolean cocheAparcado, int profundidadMaxima) {
         final String BORDE = "[__]";
         final String PARED = "[]";
         final String FONDO = " :. ";
