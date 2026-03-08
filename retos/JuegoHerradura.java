@@ -21,36 +21,15 @@ class JuegoHerradura {
         
         int turno = 0;
         do {
-            String mensaje = "Lanzamiento N.";
             turno++;
             int distanciaNaneh = (int) (Math.random() * 100);
             int distanciaArmand = (int) (Math.random() * 100);
 
-            mensaje += turno + ": ";
-            
-            if (distanciaNaneh < PROBABILIDAD_PRIMER_TRAMO){
-                mensaje += "Naneh:[Tramo 1]";
-                puntosNaneh += PUNTOS_ACIERTO;
-                tramoNaneh = 1;
-            } else if (distanciaNaneh < PROBABILIDAD_SEGUNDO_TRAMO){
-                mensaje += "Naneh:[Tramo 2]";
-                tramoNaneh = 2;
-            } else if (distanciaNaneh < PROBABILIDAD_TERCER_TRAMO){
-                mensaje += "Naneh:[Tramo 3]";
-                tramoNaneh = 3;
-            }
+            tramoNaneh = obtenerTramo(distanciaNaneh, PROBABILIDAD_PRIMER_TRAMO, PROBABILIDAD_SEGUNDO_TRAMO, PROBABILIDAD_TERCER_TRAMO);
+            tramoArmand = obtenerTramo(distanciaArmand, PROBABILIDAD_PRIMER_TRAMO, PROBABILIDAD_SEGUNDO_TRAMO, PROBABILIDAD_TERCER_TRAMO);
 
-            if (distanciaArmand < PROBABILIDAD_PRIMER_TRAMO){
-                mensaje += " Armand:[Tramo 1]";
-                puntosArmand += PUNTOS_ACIERTO;
-                tramoArmand = 1;
-            } else if (distanciaArmand < PROBABILIDAD_SEGUNDO_TRAMO){
-                mensaje += " Armand:[Tramo 2]";
-                tramoArmand = 2;
-            } else if (distanciaArmand < PROBABILIDAD_TERCER_TRAMO){
-                mensaje += " Armand:[Tramo 3]";
-                tramoArmand = 3;
-            }
+            if (tramoNaneh == 1) puntosNaneh += PUNTOS_ACIERTO;
+            if (tramoArmand == 1) puntosArmand += PUNTOS_ACIERTO;
 
             if (tramoArmand == tramoNaneh){
                 puntosArmand += PUNTOS_EMPATE;
@@ -61,9 +40,18 @@ class JuegoHerradura {
                 puntosNaneh += PUNTOS_GANADOR;
             }
 
+            System.out.println("Lanzamiento N." + turno + ": Naneh:[Tramo " + tramoNaneh + "] Armand:[Tramo " + tramoArmand + "]");
+
             alguienGana = puntosArmand >= PUNTOS_MAXIMOS || puntosNaneh >= PUNTOS_MAXIMOS;
-            System.out.println(mensaje);
+
         } while (alguienGana == false);
         System.out.println("Puntos Naneh: " + puntosNaneh + " Puntos Armand:" + puntosArmand);
+    }
+
+    private static int obtenerTramo(int distancia, int p1, int p2, int p3) {
+        if (distancia < p1) return 1;
+        if (distancia < p2) return 2;
+        if (distancia < p3) return 3;
+        return 0; 
     }    
 }
