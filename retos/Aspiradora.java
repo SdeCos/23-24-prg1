@@ -51,7 +51,7 @@ public class Aspiradora {
                     filaAspiradora = filaAspiradora < 1 ? 1 : filaAspiradora;
                     filaAspiradora = filaAspiradora > FILAS ? FILAS : filaAspiradora;
                     columnaAspiradora = generarNumeroAleatorio((columnaAspiradora - 1), (columnaAspiradora + 1));
-                    columnaAspiradora = columnaAspiradora == 0 ? 1 : columnaAspiradora;
+                    columnaAspiradora = columnaAspiradora < 1 ? 1 : columnaAspiradora;
                     columnaAspiradora = columnaAspiradora > FILAS ? FILAS : columnaAspiradora;
                     } else if (estaSucio) {
                         System.out.print(ZONA_SUCIA);
