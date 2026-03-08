@@ -24,15 +24,15 @@ public class Aspiradora {
     final int CASILLAS = FILAS * COLUMNAS;
 
     for (int zonas = 0; zonas < 8; zonas++){
-        zonasSucias[zonas] = numeroAleatorio(1, CASILLAS);
-        zonasMuySucias[zonas] = numeroAleatorio(1, CASILLAS);
+        zonasSucias[zonas] = generarNumeroAleatorio(1, CASILLAS);
+        zonasMuySucias[zonas] = generarNumeroAleatorio(1, CASILLAS);
     }
     
-    int filaAspiradora = numeroAleatorio(1, FILAS);
-    int columnaAspiradora = numeroAleatorio(1, FILAS);
+    int filaAspiradora = generarNumeroAleatorio(1, FILAS);
+    int columnaAspiradora = generarNumeroAleatorio(1, FILAS);
     
     boolean estaSucio = false;
-    boolean estaMuySucio = false;
+    boolean estaMuySucio = false;s
 
     
     while (1 == 1){
@@ -52,10 +52,10 @@ public class Aspiradora {
                 if (fila == filaAspiradora && columna == columnaAspiradora && !aspiradoraDibujada){
                     System.out.print(ASPIRADORA);
                     aspiradoraDibujada = true;
-                    filaAspiradora = numeroAleatorio((filaAspiradora - 1), (filaAspiradora + 1));
+                    filaAspiradora = generarNumeroAleatorio((filaAspiradora - 1), (filaAspiradora + 1));
                     filaAspiradora = filaAspiradora < 1 ? 1 : filaAspiradora;
                     filaAspiradora = filaAspiradora > FILAS ? FILAS : filaAspiradora;
-                    columnaAspiradora = numeroAleatorio((columnaAspiradora - 1), (columnaAspiradora + 1));
+                    columnaAspiradora = generarNumeroAleatorio((columnaAspiradora - 1), (columnaAspiradora + 1));
                     columnaAspiradora = columnaAspiradora == 0 ? 1 : columnaAspiradora;
                     columnaAspiradora = columnaAspiradora > FILAS ? FILAS : columnaAspiradora;
                     } else if (estaSucio) {
@@ -73,12 +73,12 @@ public class Aspiradora {
     }
     }
     
-    static int numeroAleatorio(int minimo, int maximo) {
+    static int generarNumeroAleatorio(int minimo, int maximo) {
         return (int) (Math.random() * (maximo - minimo + 1) + minimo);
     }
 
     static boolean calculoProbabilidad(int probabilidad) {
-        if (numeroAleatorio(0, 100) < probabilidad){
+        if (generarNumeroAleatorio(0, 100) < probabilidad){
             return true;
         } else {
             return false;
