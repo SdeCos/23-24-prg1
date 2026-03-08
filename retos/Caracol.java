@@ -88,7 +88,7 @@ class Caracol {
                 estaFuera = true;
                 System.out.println("El caracol salió del pozo el día " + dia);
             }
-        } while (estaFuera == false && estaVivo == true);
+        } while (!estaFuera && estaVivo);
     }
 
     public static void dibujarPozo(int profundidad, boolean cocheAparcado, int profundidadMaxima) {

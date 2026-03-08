@@ -101,7 +101,7 @@ class ViajeDeMarco {
             System.out.print(SEGUNDO_SEPARADOR);
             madreEncontrada = distanciaTotalMarco >= distanciaTotalMadre;
             scanner.nextLine();
-        } while (madreEncontrada == false);
+        } while (!madreEncontrada);
         System.out.println(TERCER_SEPARADOR);
         System.out.println("Al final del día " + dia + " Marco encuentra a su madre!!!");
         System.out.println(TERCER_SEPARADOR);
