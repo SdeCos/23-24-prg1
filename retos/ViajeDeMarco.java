@@ -38,20 +38,17 @@ class ViajeDeMarco {
                 amedioEscapa = "¡He perdido tiempo buscando a Amedio!'\n";
                 velocidadMarco = velocidadMarco * 0.9;
                 tiempoMoviendoseMarco = tiempoMoviendoseMarco - 2;
+            } else if (calculadoraCansancio > 0.75) {
+                amedioCansado = "¡He ido más lento porque Amedio se ha cansado!\n";
+                velocidadMarco = velocidadMarco * 0.9;
+            } else if (calculadoraEscape > 0.85) {
+                amedioEscapa = "¡He perdido tiempo buscando a Amedio!\n";
+                tiempoMoviendoseMarco = tiempoMoviendoseMarco - 2;
             } else {
-                if (calculadoraCansancio > 0.75) {
-                    amedioCansado = "¡He ido más lento porque Amedio se ha cansado!\n";
-                    velocidadMarco = velocidadMarco * 0.9;
-                } else {
-                    if (calculadoraEscape > 0.85) {
-                        amedioEscapa = "¡He perdido tiempo buscando a Amedio!\n";
-                        tiempoMoviendoseMarco = tiempoMoviendoseMarco - 2;
-                    } else {
-                        amedioCansado = "";
-                        amedioEscapa = "";
-                    }
-                }
+                amedioCansado = "";
+                amedioEscapa = "";
             }
+            
             if (calculadoraLluvia < 0.6) {
                 recorridoDiarioMarco = velocidadMarco * tiempoMoviendoseMarco;
                 recorridoDiarioMadre = velocidadMadre * tiempoMoviendoseMadre;
